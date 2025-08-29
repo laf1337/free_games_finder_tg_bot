@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.filters import Command, CommandStart
 from database.db import Database
 from keyboards import reply, inline
-from database.shared import latest_data
+import utils.func as func
 db = Database("users_data.db")
 router = Router()
 
@@ -34,4 +34,4 @@ async def sub(message: Message):
 @router.message(Command("freegames"))
 @router.message(F.text.lower() == "получить список бесплатных игр")
 async def sub(message: Message):
-    await message.answer(latest_data, reply_markup=inline.links)
+    await message.answer(func.latest_data, reply_markup=inline.links)

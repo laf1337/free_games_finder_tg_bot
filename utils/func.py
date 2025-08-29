@@ -1,10 +1,10 @@
 import asyncio
 from parser.pars import sale_massage_parser
 from database.db import Database
-from database.shared import latest_data
 from aiogram import Bot
 
 db = Database("users_data.db")
+latest_data: str = "Данных пока нет."
 
 async def sendgameslist(bot: Bot):
     users = await db.get_subscribed_ids()
@@ -19,6 +19,7 @@ async def sendgameslist(bot: Bot):
 async def parser_loop():
     print("[i] Wait new data...")
     loop = asyncio.get_running_loop()
+    global latest_data
     while True:
         latest_data = await loop.run_in_executor(None, sale_massage_parser)
         print("[i] Data updated!")
